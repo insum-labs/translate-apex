@@ -25,6 +25,14 @@ wwv_flow_api.create_list_item(
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
 wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(11355357442849638)
+,p_list_item_display_sequence=>20
+,p_list_item_link_text=>'public page'
+,p_list_item_link_target=>'f?p=&APP_ID.:2:&APP_SESSION.::&DEBUG.:::'
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'2'
+);
+wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(11145707877351432)
 ,p_list_item_display_sequence=>10000
 ,p_list_item_link_text=>'Administration'

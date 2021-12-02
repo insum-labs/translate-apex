@@ -17,8 +17,7 @@ prompt --install
 @@application/shared_components/security/app_access_control/contributor.sql
 @@application/shared_components/security/app_access_control/reader.sql
 @@application/shared_components/navigation/navigation_bar.sql
-@@application/shared_components/logic/application_processes/set_lang.sql
-@@application/shared_components/logic/application_processes/set_fr_lang.sql
+@@application/shared_components/logic/application_processes/set_my_lang.sql
 @@application/shared_components/logic/application_computations/p0_lang.sql
 @@application/shared_components/logic/application_settings.sql
 @@application/shared_components/navigation/tabs/standard.sql
@@ -113,6 +112,7 @@ prompt --install
 @@application/user_interfaces/combined_files.sql
 @@application/pages/page_00000.sql
 @@application/pages/page_00001.sql
+@@application/pages/page_00002.sql
 @@application/pages/page_09999.sql
 @@application/pages/page_10000.sql
 @@application/pages/page_10010.sql

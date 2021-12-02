@@ -20,7 +20,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'D'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202151436'
+,p_last_upd_yyyymmddhh24miss=>'20211202221950'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(22487018638049270)
@@ -67,10 +67,8 @@ wwv_flow_api.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'apex_util.set_preference( p_preference => ''FSP_LANGUAGE_PREFERENCE''',
-'                       , p_value      => :P0_LANG',
-'                       );',
-''))
+'ait_translate_util.set_app_lang(p_application_id => :APP_ID,',
+'                                p_language       => :P0_LANG);'))
 ,p_attribute_02=>'P0_LANG'
 ,p_attribute_05=>'PLSQL'
 ,p_wait_for_result=>'Y'

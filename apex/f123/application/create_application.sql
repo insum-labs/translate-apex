@@ -22,7 +22,7 @@ wwv_flow_api.create_flow(
 ,p_bookmark_checksum_function=>'SH512'
 ,p_compatibility_mode=>'19.2'
 ,p_flow_language=>'en'
-,p_flow_language_derived_from=>'FLOW_PREFERENCE'
+,p_flow_language_derived_from=>'SESSION'
 ,p_allow_feedback_yn=>'Y'
 ,p_date_format=>'DS'
 ,p_timestamp_format=>'DS'
@@ -31,11 +31,12 @@ wwv_flow_api.create_flow(
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
 ,p_documentation_banner=>'Application created from create application wizard 2021.12.01.'
 ,p_authentication=>'PLUGIN'
-,p_authentication_id=>wwv_flow_api.id(11156555902355924)
+,p_authentication_id=>wwv_flow_api.id(10944377704349686)
 ,p_application_tab_set=>1
 ,p_logo_type=>'T'
 ,p_logo_text=>'translation'
 ,p_app_builder_icon_name=>'app-icon.svg'
+,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
 ,p_flow_version=>'Release 1.0'
@@ -52,7 +53,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'translation'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202151710'
+,p_last_upd_yyyymmddhh24miss=>'20211202222328'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null

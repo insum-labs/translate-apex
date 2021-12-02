@@ -20,11 +20,11 @@ wwv_flow_api.create_page(
 ,p_warn_on_unsaved_changes=>'N'
 ,p_first_item=>'AUTO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
-,p_step_template=>wwv_flow_api.id(10951354062349713)
+,p_step_template=>wwv_flow_api.id(10956716799349719)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_is_public_y_n=>'Y'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211201151128'
+,p_last_upd_yyyymmddhh24miss=>'20211202222328'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(11097750847349895)
@@ -44,13 +44,14 @@ wwv_flow_api.create_page_plug(
 ,p_parent_plug_id=>wwv_flow_api.id(11097750847349895)
 ,p_region_template_options=>'#DEFAULT#'
 ,p_component_template_options=>'#DEFAULT#'
-,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(10971277124349730)
 ,p_plug_display_sequence=>20
 ,p_plug_display_point=>'BODY'
 ,p_plug_source=>'apex_lang.emit_language_selector_list;'
 ,p_plug_source_type=>'NATIVE_PLSQL'
 ,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_required_role=>'MUST_NOT_BE_PUBLIC_USER'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(11100548179349905)
@@ -63,9 +64,28 @@ wwv_flow_api.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Sign In'
 ,p_button_position=>'REGION_TEMPLATE_NEXT'
-,p_button_alignment=>'LEFT'
-,p_grid_new_row=>'Y'
-,p_grid_new_column=>'Y'
+);
+wwv_flow_api.create_page_branch(
+ p_id=>wwv_flow_api.id(11369453789469171)
+,p_branch_name=>'public page branch'
+,p_branch_action=>'f?p=&APP_ID.:9999:&SESSION.::&DEBUG.:::&success_msg=#SUCCESS_MSG#'
+,p_branch_point=>'BEFORE_HEADER'
+,p_branch_type=>'REDIRECT_URL'
+,p_branch_sequence=>20
+,p_branch_condition_type=>'FUNCTION_BODY'
+,p_branch_condition=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'declare',
+'l_retval boolean := false;',
+'begin',
+'',
+'if apex_util.get_session_lang is null then',
+'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    l_retval := true;',
+'end if;',
+'',
+'return l_retval;',
+'end;'))
+,p_branch_condition_text=>'PLSQL'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(11098179425349898)
@@ -77,14 +97,12 @@ wwv_flow_api.create_page_item(
 ,p_display_as=>'NATIVE_TEXT_FIELD'
 ,p_cSize=>40
 ,p_cMaxlength=>100
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(11064522621349790)
 ,p_item_icon_css_classes=>'fa-user'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'
-,p_attribute_03=>'N'
 ,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'NONE'
 );
@@ -98,7 +116,6 @@ wwv_flow_api.create_page_item(
 ,p_display_as=>'NATIVE_PASSWORD'
 ,p_cSize=>40
 ,p_cMaxlength=>100
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(11064522621349790)
 ,p_item_icon_css_classes=>'fa-key'
 ,p_item_template_options=>'#DEFAULT#'
@@ -114,7 +131,6 @@ wwv_flow_api.create_page_item(
 ,p_display_as=>'NATIVE_CHECKBOX'
 ,p_named_lov=>'LOGIN_REMEMBER_USERNAME'
 ,p_lov=>'.'||wwv_flow_api.id(11098825899349899)||'.'
-,p_label_alignment=>'RIGHT'
 ,p_display_when=>'apex_authentication.persistent_cookies_enabled'
 ,p_display_when2=>'PLSQL'
 ,p_display_when_type=>'EXPRESSION'
@@ -147,6 +163,7 @@ wwv_flow_api.create_page_process(
 '    p_consent  => :P9999_REMEMBER = ''Y'' );'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(11100548179349905)
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(11100936357349906)
@@ -160,6 +177,7 @@ wwv_flow_api.create_page_process(
 '    p_password => :P9999_PASSWORD );'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_when_button_id=>wwv_flow_api.id(11100548179349905)
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(11102180208349908)

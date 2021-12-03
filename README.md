@@ -17,7 +17,7 @@ declare
 l_retval boolean := false;
 begin
  if apex_util.get_session_lang is null then
-     ait_translate_util.set_app_lang(p_application_id => :APP_ID);
+     ait_translate_util.set_session_lang(p_application_id => :APP_ID);
       l_retval := true;
   end if;
 
@@ -31,7 +31,7 @@ Create an "After Authentication" process that runs the below code:
 
 ```
 begin
-    ait_translate_util.set_app_lang(p_application_id => :APP_ID);
+    ait_translate_util.set_session_lang(p_application_id => :APP_ID);
 end;
 ```
 
@@ -40,6 +40,6 @@ end;
 I recommend having a page process that runs the following code on page 0, with a radio list of the available languages:
 
 ```
-ait_translate_util.set_app_lang(p_application_id => :APP_ID,
+ait_translate_util.set_session_lang(p_application_id => :APP_ID,
                                 p_language       => :P0_LANG);
 ```

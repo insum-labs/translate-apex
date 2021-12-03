@@ -19,7 +19,7 @@ wwv_flow_api.create_flow_process(
 ,p_process_name=>'SET_MY_LANG'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'begin',
-'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    ait_translate_util.set_session_lang(p_application_id => :APP_ID);',
 '',
 'end;'))
 ,p_process_clob_language=>'PLSQL'

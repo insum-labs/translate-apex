@@ -21,7 +21,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_is_public_y_n=>'Y'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202211718'
+,p_last_upd_yyyymmddhh24miss=>'20211203174515'
 );
 wwv_flow_api.create_report_region(
  p_id=>wwv_flow_api.id(11227403725279725)
@@ -91,7 +91,7 @@ wwv_flow_api.create_page_branch(
 'begin',
 '',
 'if apex_util.get_session_lang is null then',
-'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    ait_translate_util.set_session_lang(p_application_id => :APP_ID);',
 '    l_retval := true;',
 'end if;',
 '',

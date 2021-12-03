@@ -1,6 +1,6 @@
 # APEX Applications
 
-By default the build script included in this project will do some "extra" things for your APEX applications. 
+By default the build script included in this project will do some "extra" things for your APEX applications.
 
 - [Summary](#summary)
 - [App Version](#app-version)
@@ -12,19 +12,17 @@ Provides a brief summary of all changes you'll need to make in your APEX applica
 
 1. Go to `Application Properties > Version` and set to `Release %RELEASE_VERSION%` (or whatever text your want but `%RELEASE_VERSION%` will be the version number)
 
-
 ## App Version
 
 Every APEX application has version attribute which is stored in `Application Properties > Version`. By default it's set to `Release 1.0` and shows up in the bottom left footer of your application. Manually changing this value for each release can be cumbersome and error prone. Instead use `%RELEASE_VERSION%` in the `Version` attribute and `%RELEASE_VERSION%` will be replaced automatically with your build version.
 
 For example set the `Version` to `Release %RELEASE_VERSION%` and when you "build" version `2.0.0` it will show up as `Release 2.0.0` in your application.
 
-
 ## Error Handling Function
 
-By default APEX will show system error messages as they are raised. Example `ORA-123: Some error message`. APEX allows you to *intercept* these error messages and display your own error message instead. This can be very useful to both provide a more user-friendly error message and log everything about the user's session to help with debugging.
+By default APEX will show system error messages as they are raised. Example `ORA-123: Some error message`. APEX allows you to _intercept_ these error messages and display your own error message instead. This can be very useful to both provide a more user-friendly error message and log everything about the user's session to help with debugging.
 
-Below is an example of an error handling function that can easily be modified and augmented for your application. The base code was taken from the [Example of an Error Handling Function](https://docs.oracle.com/en/database/oracle/application-express/20.1/aeapi/Example-of-an-Error-Handling-Function.html#GUID-2CD75881-1A59-4787-B04B-9AAEC14E1A82) in the APEX documentation. *Again it's important to note that you can modify this to your project's needs and tools*. The error function does the following:
+Below is an example of an error handling function that can easily be modified and augmented for your application. The base code was taken from the [Example of an Error Handling Function](https://docs.oracle.com/en/database/oracle/application-express/20.1/aeapi/Example-of-an-Error-Handling-Function.html#GUID-2CD75881-1A59-4787-B04B-9AAEC14E1A82) in the APEX documentation. _Again it's important to note that you can modify this to your project's needs and tools_. The error function does the following:
 
 - Provide a generic friendly error message along with a human readable error code for users to reference in support tickets
   - This error code can then be referenced in your logs
@@ -38,7 +36,6 @@ Dependencies:
 - [OOS Utils](https://github.com/OraOpenSource/oos-utils)
 
 To apply this custom error handling function in APEX go to `Shared Components > Application Definitions > Error Handling` set the option `Error Handling Function` to `pkg_apex.apex_error_handler` (assuming the function below is added to a package called `pkg_apex`).
-
 
 ```sql
 function apex_error_handler(
@@ -127,7 +124,7 @@ begin
     -- Note: If you have created manual tabular forms (using the package
     --       apex_item/htmldb_item in the SQL statement) you should still
     --       use "On error page" on that pages to avoid loosing entered data
-    l_return.display_location := 
+    l_return.display_location :=
       case
         when l_return.display_location = apex_error.c_on_error_page then apex_error.c_inline_in_notification
         else l_return.display_location

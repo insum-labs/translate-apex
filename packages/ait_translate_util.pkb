@@ -9,7 +9,7 @@ create or replace package body ait_translate_util as
   l_scope logger_logs.scope%type := gc_scope_prefix || 'get_browser_language';
   l_params logger.tab_param;
 
-  l_browser_language      varchar2(256);
+  l_browser_language       varchar2(4000);
   l_final_browser_language varchar2(5);
   begin
     logger.append_param(l_params, 'p_application_id', p_application_id);
@@ -42,10 +42,12 @@ create or replace package body ait_translate_util as
                       order by translated_app_language
                       fetch first 1 rows only) l3 on 1=1
     left outer join apex_applications aaa on aaa.application_id = p_application_id;
+    logger.log('. l_final_browser_language', l_scope, l_final_browser_language);
 
+    logger.log('END', l_scope);
     return l_final_browser_language;
     
-    logger.log('END', l_scope);
+    
   exception when others then 
     logger.log_error('Unhandled Exception', l_scope, null, l_params); 
     raise;
@@ -57,30 +59,42 @@ create or replace package body ait_translate_util as
    *
    * @author Hayden Hudson 
    * @created 12.23.2021 
-   * @param TODO
-   * @return
    */
-  procedure set_app_lang(p_application_id in number default v('APP_ID'),
-                         p_language       in varchar2 default null)
+  procedure set_session_lang(p_application_id in number default v('APP_ID'),
+                             p_language       in varchar2 default null)
   as
-    l_scope logger_logs.scope%type := gc_scope_prefix || 'set_app_lang';
+    l_scope logger_logs.scope%type := gc_scope_prefix || 'set_session_lang';
     l_params logger.tab_param;
 
     l_preference_language  varchar2(5)   := apex_util.get_preference(p_preference => 'FSP_LANGUAGE_PREFERENCE');
-    l_browser_language     varchar2(256) := get_browser_language (p_application_id => p_application_id);
     l_final_language       varchar2(5);
+
+    procedure clear_mistaken_public_preference is /* if the 'nobody' user somehow has a preference set, clear it*/
+    begin
+      case when v('APP_USER') = 'nobody' and l_preference_language is not null
+           then 
+              logger.log('. clearing mistaken public preference', l_scope, null, l_params);
+              apex_util.set_preference( p_preference => 'FSP_LANGUAGE_PREFERENCE'
+                                        , p_value      => null );
+              l_preference_language := null;
+           else null;
+      end case;
+    end clear_mistaken_public_preference;
+
   begin
     logger.append_param(l_params, 'p_application_id', p_application_id);
     logger.append_param(l_params, 'p_language', p_language);
     logger.append_param(l_params, 'app_user', v('APP_USER'));
+    logger.append_param(l_params, 'l_preference_language', l_preference_language);
     logger.log('START', l_scope, null, l_params);
     
+    clear_mistaken_public_preference;
     
     l_final_language := case when p_language is not null
                              then p_language
-                             when l_preference_language is not null
+                             when l_preference_language is not null 
                              then l_preference_language
-                             else l_browser_language
+                             else get_browser_language (p_application_id => p_application_id)
                         end;
 
     logger.log('. l_final_language', l_scope, l_final_language);
@@ -92,6 +106,7 @@ create or replace package body ait_translate_util as
          then
             apex_util.set_preference( p_preference => 'FSP_LANGUAGE_PREFERENCE'
                                     , p_value      => p_language );
+         else logger.log('. preference unchanged', l_scope, null, l_params);
     end case;
 
     logger.log('END', l_scope);
@@ -99,7 +114,7 @@ create or replace package body ait_translate_util as
     when others then
       logger.log_error('Unhandled Exception', l_scope, null, l_params);
       raise;
-  end set_app_lang;
+  end set_session_lang;
 
 
 end ait_translate_util;

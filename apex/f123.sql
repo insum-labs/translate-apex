@@ -28,7 +28,7 @@ prompt APPLICATION 123 - translation
 -- Application Export:
 --   Application:     123
 --   Name:            translation
---   Date and Time:   23:08 Thursday December 2, 2021
+--   Date and Time:   17:47 Friday December 3, 2021
 --   Exported By:     ILA
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -125,7 +125,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'translation'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202222328'
+,p_last_upd_yyyymmddhh24miss=>'20211203174534'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -464,7 +464,7 @@ wwv_flow_api.create_flow_process(
 ,p_process_name=>'SET_MY_LANG'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'begin',
-'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    ait_translate_util.set_session_lang(p_application_id => :APP_ID);',
 '',
 'end;'))
 ,p_process_clob_language=>'PLSQL'
@@ -11640,7 +11640,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'D'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202221950'
+,p_last_upd_yyyymmddhh24miss=>'20211203173850'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(22487018638049270)
@@ -11687,8 +11687,8 @@ wwv_flow_api.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'ait_translate_util.set_app_lang(p_application_id => :APP_ID,',
-'                                p_language       => :P0_LANG);'))
+'ait_translate_util.set_session_lang(p_application_id => :APP_ID,',
+'                                    p_language       => :P0_LANG);'))
 ,p_attribute_02=>'P0_LANG'
 ,p_attribute_05=>'PLSQL'
 ,p_wait_for_result=>'Y'
@@ -11833,7 +11833,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_is_public_y_n=>'Y'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202211718'
+,p_last_upd_yyyymmddhh24miss=>'20211203174515'
 );
 wwv_flow_api.create_report_region(
  p_id=>wwv_flow_api.id(11227403725279725)
@@ -11903,7 +11903,7 @@ wwv_flow_api.create_page_branch(
 'begin',
 '',
 'if apex_util.get_session_lang is null then',
-'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    ait_translate_util.set_session_lang(p_application_id => :APP_ID);',
 '    l_retval := true;',
 'end if;',
 '',
@@ -11928,7 +11928,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_is_public_y_n=>'Y'
 ,p_last_updated_by=>'HAYDEN'
-,p_last_upd_yyyymmddhh24miss=>'20211202222328'
+,p_last_upd_yyyymmddhh24miss=>'20211203173946'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(11097750847349895)
@@ -11983,7 +11983,7 @@ wwv_flow_api.create_page_branch(
 'begin',
 '',
 'if apex_util.get_session_lang is null then',
-'    ait_translate_util.set_app_lang(p_application_id => :APP_ID);',
+'    ait_translate_util.set_session_lang(p_application_id => :APP_ID);',
 '    l_retval := true;',
 'end if;',
 '',
